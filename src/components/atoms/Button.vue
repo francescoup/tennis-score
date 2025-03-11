@@ -1,5 +1,5 @@
 <template>
-    <button class="bg-yellow-500 py-2 w-full" @click="emit('handler')">
+    <button class="bg-yellow-500 py-2 w-full" @click="emit('handler')" aria-hidden="true">
 {{text}}
     </button>
 </template>
@@ -8,7 +8,7 @@
 defineProps({
     text:String
 })
-const emit = defineEmits('handler')
+const emit = defineEmits(['handler'])
 
 </script>
 
