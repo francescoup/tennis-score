@@ -1,8 +1,8 @@
 <template>
   <main
-    class="bg-gray-900 flex justify-center items-center lg:items-center h-dvh"
+    class="bg-gray-900 flex justify-center items-center lg:items-center h-lvh"
   >
-    <div class="w-full h-full bg-[url(src/assets/bg-tennis.jpg)] bg-cover">
+    <div class="w-full h-full bg-[url(assets/bg-tennis.jpg)] bg-cover">
       <Transition>
         <div v-if="isShowModal">
           <Modal @handlerModal="time" />
@@ -10,7 +10,7 @@
       </Transition>
 
       <div
-        class="flex flex-col justify-between lg:justify-center gap-3 p-20 border-amber-300 border h-full"
+        class="flex flex-col justify-between lg:justify-center gap-3 p-20 h-full"
       >
         <div>
           <h1 class="text-white text-4xl">Tennis point sistem</h1>
