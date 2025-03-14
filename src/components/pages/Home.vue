@@ -10,7 +10,7 @@
       </Transition>
 
       <div
-        class="flex flex-col justify-between lg:justify-center gap-3 p-10 md:p-20 h-full"
+        class="flex flex-col justify-center lg:justify-center gap-3 p-10 md:p-20 h-full"
       >
         <div>
           <Title title="Tennis Points Sistem" />

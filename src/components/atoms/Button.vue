@@ -20,7 +20,7 @@ const buttonClass = computed(() => {
     variants: {
       intent: {
         primary:
-          "border-slate-800 text-slate-800 lg:border-gray-300 lg:text-gray-300 rounded-full hover:bg-white hover:text-slate-800",
+          "border-gray-300 text-gray-300 rounded-full hover:bg-white hover:text-slate-800",
         secondary: "bg-yellow-400 rounded-md",
         modal:
           "border-gray-800 text-gray-800 rounded-full hover:bg-white hover:text-gray-800",
