@@ -1,50 +1,74 @@
 <template>
   <div class="max-w-sm mx-auto p-4 h-dvh rounded-lg shadow-md">
-    <RouterLink to="/test">Go to About</RouterLink>
-    <h2 class="text-2xl text-center font-semibold mb-4">
-      Sistema di Punteggi Tennis
-    </h2>
+    <div v-if="store.openModal">
+      <ModalCopy>
+        <span class="text-black">the winner is {{ store.isWinner }}</span>
+        <Button
+          text="chiusi"
+          intent="modal"
+          @handler="() => (store.openModal = false)"
+        />
+        <button @click="() => (store.openModal = false)">chidi</button>
+      </ModalCopy>
+    </div>
     <!-- Punteggio dei giochi -->
     <PointScore
       :playerOnePoint="player1DisplayScore"
       :playerTwoPoint="player2DisplayScore"
     />
     <!-- Punteggio dei set -->
+    <div class="text-center w-full text-sm text-gray-500">Game vinti</div>
     <div class="flex justify-between mb-4 text-white">
-      <div>
-        <p class="font-semibold">
+      <div class="w-full text-center">
+        <p class="text-sm text-amber-300">
           {{ store.playerOne.nome }}
         </p>
-        <p class="text-3xl">{{ player1Game }} giochi vinti</p>
+        <p class="text-3xl">{{ store.playerOne.game }}</p>
       </div>
-      <div>
-        <p class="font-semibold">{{ store.playerTwo.nome }}</p>
-        <p class="text-3xl">{{ player2Game }} giochi vinti</p>
-      </div>
-    </div>
-    <div class="flex justify-between mb-4 text-white">
-      <div>
-        <p class="font-semibold">{{ player1Name }}</p>
-        <p>{{ player1Sets }} set vinti</p>
-      </div>
-      <div>
-        <p class="font-semibold">{{ player2Name }}</p>
-        <p>{{ player2Sets }} set vinti</p>
+      <div class="w-full text-center">
+        <p class="text-sm text-amber-300">{{ store.playerTwo.nome }}</p>
+        <p class="text-3xl">{{ store.playerTwo.game }}</p>
       </div>
     </div>
-    <div class="mb-4 grid grid-cols-2 gap-1 text-white">
-      <SetsScore :pointSet="player1Set1" />
-      <SetsScore :pointSet="player2Set1" />
-      <SetsScore :pointSet="player1Set2" />
-      <SetsScore :pointSet="player2Set2" />
-      <SetsScore :pointSet="player1Set3" />
-      <SetsScore :pointSet="player2Set3" />
+    <div class="text-center w-full text-sm text-gray-500">Set vinti</div>
+    <div class="flex justify-evenly mb-4 text-gray-300">
+      <div class="w-full text-lg text-center text-gray-400">
+        <p>{{ store.playerOne.sets }}</p>
+      </div>
+      <div class="w-full text-lg text-center text-gray-400">
+        <p>{{ store.playerTwo.sets }}</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1">
+      <span class="text-center w-full text-sm text-gray-500">set 1</span>
+      <div class="mb-4 grid grid-cols-2 gap-1 text-white">
+        <SetsScore :pointSet="store.playerOne.setOne" />
+        <SetsScore :pointSet="store.playerTwo.setOne" />
+      </div>
+      <span class="text-center w-full text-sm text-gray-500">set 2</span>
+      <div class="mb-4 grid grid-cols-2 gap-1 text-white">
+        <SetsScore :pointSet="store.playerOne.setTwo" />
+        <SetsScore :pointSet="store.playerTwo.setTwo" />
+      </div>
+      <span class="text-center w-full text-sm text-gray-500">set 3</span>
+      <div class="mb-4 grid grid-cols-2 gap-1 text-white">
+        <SetsScore :pointSet="store.playerOne.setThree" />
+        <SetsScore :pointSet="store.playerTwo.setThree" />
+      </div>
     </div>
 
     <!-- Pulsanti per aumentare il punteggio -->
     <div class="mb-1 grid grid-cols-2 gap-1">
-      <Button @handler="increaseScore(1)" text="player 1" intent="secondary" />
-      <Button @handler="increaseScore(2)" text="Player 2" intent="secondary" />
+      <Button
+        @handler="store.increaseScore(1)"
+        text="player 1"
+        intent="secondary"
+      />
+      <Button
+        @handler="store.increaseScore(2)"
+        text="Player 2"
+        intent="secondary"
+      />
     </div>
 
     <!-- Pulsante per resettare il punteggio -->
@@ -59,6 +83,7 @@
 import { ref, computed } from "vue";
 import { useTennisScore } from "../../store/store";
 const store = useTennisScore();
+import ModalCopy from "../organism/Modal copy.vue";
 
 // Stati reattivi per i punteggi dei giochi
 
@@ -93,10 +118,10 @@ const scoreMap = [0, 15, 30, 40, "A", "Vittoria"];
 
 // Computed properties per visualizzare i punteggi dei giochi
 const player1DisplayScore = computed(() =>
-  tieBreack.value ? player1Score.value : scoreMap[player1Score.value]
+  store.isTieBreack ? store.playerOne.point : scoreMap[store.playerOne.point]
 );
 const player2DisplayScore = computed(() =>
-  tieBreack.value ? player2Score.value : scoreMap[player2Score.value]
+  store.isTieBreack ? store.playerTwo.point : scoreMap[store.playerTwo.point]
 );
 // active user
 const activeUser = ref(0);

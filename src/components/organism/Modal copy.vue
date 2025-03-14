@@ -6,14 +6,7 @@
     aria-modal="true"
   >
     <div class="w-full h-auto md:w-86 bg-white p-10 rounded-xl shadow-2xl">
-      Test modal title
-      <div class="flex flex-col gap-2">
-        <!-- <Input v-model="playerOne.nome" />
-        <Input v-model="playerTwo.nome" /> -->
-        <Inputtest v-model:firstName="playerOne.nome" label="Giocatore uno" />
-        <Inputtest v-model:firstName="playerTwo.nome" label="Giocatore due" />
-        <Button @handler="closeModal" text="Inizia la partita" intent="modal" />
-      </div>
+      <slot />
     </div>
   </div>
 </template>

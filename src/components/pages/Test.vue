@@ -2,7 +2,9 @@
   <div class="text-white">
     <RouterLink to="/score">score</RouterLink>
     esempio
-
+    <ModalCopy>
+      <Input />
+    </ModalCopy>
     <p>{{ player1DisplayScore }}</p>
     <p>{{ player2DisplayScore }}</p>
     <p>{{ playerOne.game }}</p>
@@ -18,7 +20,9 @@
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import { useTennisScore } from "../../store/store";
+import ModalCopy from "../organism/Modal copy.vue";
 import Input from "../atoms/Input.vue";
+
 const { playerOne, playerTwo, increaseScore } = useTennisScore();
 const scoreMap = [0, 15, 30, 40, "A", "Vittoria"];
 const player1DisplayScore = computed(() => scoreMap[playerOne.point]);
