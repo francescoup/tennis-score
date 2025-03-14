@@ -6,8 +6,14 @@ defineProps({
 </script>
 
 <template>
-  <label
-    >{{ label }}
-    <input type="text" v-model="firstName" />
+  <label class="block">
+    <span className="block text-sm font-medium text-slate-700">{{
+      label
+    }}</span>
+    <input
+      class="border border-gray-800 text-gray-800 rounded-full w-full py-2"
+      type="text"
+      v-model="firstName"
+    />
   </label>
 </template>

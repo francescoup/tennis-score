@@ -13,8 +13,12 @@
         <Input v-model="playerOne.nome" />
         <Input v-model="playerTwo.nome" />
         <Inputtest v-model:firstName="playerOne.nome" label="ciioa" />
-        <Button @handler="closeModal" text="chiudi" />
-        <Button @handler="$router.push('/test')" text="nuova partita" />
+        <Button @handler="closeModal" text="chiudi" intent="modal" />
+        <Button
+          @handler="$router.push('/test')"
+          text="nuova partita"
+          intent="modal"
+        />
       </div>
     </div>
   </div>

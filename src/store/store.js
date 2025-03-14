@@ -24,8 +24,6 @@ export const useTennisScore = defineStore("TennisScore", () => {
   const isTieBreack = ref(false);
   // Deuce
   const isDeuce = ref(false);
-  // Modal status
-  const isShowModal = ref(false);
 
   // Logic for point and set
   const increaseScore = (player) => {
@@ -72,5 +70,5 @@ export const useTennisScore = defineStore("TennisScore", () => {
     }
   };
 
-  return { playerOne, playerTwo, isShowModal, increaseScore };
+  return { playerOne, playerTwo, increaseScore };
 });
