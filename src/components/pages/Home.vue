@@ -1,6 +1,6 @@
 <template>
   <main
-    class="bg-gray-900 flex justify-center items-center lg:items-center h-dvh"
+    class="bg-gray-900 flex justify-center items-center lg:items-center h-vh"
   >
     <div class="w-full h-full bg-[url(assets/bg-tennis.jpg)] bg-cover bg-top">
       <Transition>

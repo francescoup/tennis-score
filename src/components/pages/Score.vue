@@ -12,11 +12,13 @@
     <!-- Punteggio dei set -->
     <div class="flex justify-between mb-4 text-white">
       <div>
-        <p class="font-semibold">{{ player1Name }}</p>
+        <p class="font-semibold">
+          {{ store.playerOne.nome }}
+        </p>
         <p class="text-3xl">{{ player1Game }} giochi vinti</p>
       </div>
       <div>
-        <p class="font-semibold">{{ player2Name }}</p>
+        <p class="font-semibold">{{ store.playerTwo.nome }}</p>
         <p class="text-3xl">{{ player2Game }} giochi vinti</p>
       </div>
     </div>
@@ -55,6 +57,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useTennisScore } from "../../store/store";
+const store = useTennisScore();
 
 // Stati reattivi per i punteggi dei giochi
 
