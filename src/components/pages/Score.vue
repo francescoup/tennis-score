@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-sm mx-auto p-4 h-dvh rounded-lg shadow-md">
+  <div class="w-screen flex justify-center items-center p-4 h-screen">
     <div v-if="store.openModal">
       <ModalCopy>
         <span class="text-black">the winner is {{ store.isWinner }}</span>
@@ -11,70 +11,72 @@
         <button @click="() => (store.openModal = false)">chidi</button>
       </ModalCopy>
     </div>
-    <!-- Punteggio dei giochi -->
-    <PointScore
-      :playerOnePoint="player1DisplayScore"
-      :playerTwoPoint="player2DisplayScore"
-    />
-    <!-- Punteggio dei set -->
-    <div class="text-center w-full text-sm text-gray-500">Game vinti</div>
-    <div class="flex justify-between mb-4 text-white">
-      <div class="w-full text-center">
-        <p class="text-sm text-amber-300">
-          {{ store.playerOne.nome }}
-        </p>
-        <p class="text-3xl">{{ store.playerOne.game }}</p>
-      </div>
-      <div class="w-full text-center">
-        <p class="text-sm text-amber-300">{{ store.playerTwo.nome }}</p>
-        <p class="text-3xl">{{ store.playerTwo.game }}</p>
-      </div>
-    </div>
-    <div class="text-center w-full text-sm text-gray-500">Set vinti</div>
-    <div class="flex justify-evenly mb-4 text-gray-300">
-      <div class="w-full text-lg text-center text-gray-400">
-        <p>{{ store.playerOne.sets }}</p>
-      </div>
-      <div class="w-full text-lg text-center text-gray-400">
-        <p>{{ store.playerTwo.sets }}</p>
-      </div>
-    </div>
-    <div class="grid grid-cols-1">
-      <span class="text-center w-full text-sm text-gray-500">set 1</span>
-      <div class="mb-4 grid grid-cols-2 gap-1 text-white">
-        <SetsScore :pointSet="store.playerOne.setOne" />
-        <SetsScore :pointSet="store.playerTwo.setOne" />
-      </div>
-      <span class="text-center w-full text-sm text-gray-500">set 2</span>
-      <div class="mb-4 grid grid-cols-2 gap-1 text-white">
-        <SetsScore :pointSet="store.playerOne.setTwo" />
-        <SetsScore :pointSet="store.playerTwo.setTwo" />
-      </div>
-      <span class="text-center w-full text-sm text-gray-500">set 3</span>
-      <div class="mb-4 grid grid-cols-2 gap-1 text-white">
-        <SetsScore :pointSet="store.playerOne.setThree" />
-        <SetsScore :pointSet="store.playerTwo.setThree" />
-      </div>
-    </div>
-
-    <!-- Pulsanti per aumentare il punteggio -->
-    <div class="mb-1 grid grid-cols-2 gap-1">
-      <Button
-        @handler="store.increaseScore(1)"
-        text="player 1"
-        intent="secondary"
+    <div class="w-full h-auto md:w-1/3">
+      <!-- Punteggio dei giochi -->
+      <PointScore
+        :playerOnePoint="player1DisplayScore"
+        :playerTwoPoint="player2DisplayScore"
       />
-      <Button
-        @handler="store.increaseScore(2)"
-        text="Player 2"
-        intent="secondary"
-      />
-    </div>
+      <!-- Punteggio dei set -->
+      <div class="text-center w-full text-sm text-gray-500">Game vinti</div>
+      <div class="flex justify-between mb-4 text-white">
+        <div class="w-full text-center">
+          <p class="text-sm text-amber-300">
+            {{ store.playerOne.nome }}
+          </p>
+          <p class="text-3xl">{{ store.playerOne.game }}</p>
+        </div>
+        <div class="w-full text-center">
+          <p class="text-sm text-amber-300">{{ store.playerTwo.nome }}</p>
+          <p class="text-3xl">{{ store.playerTwo.game }}</p>
+        </div>
+      </div>
+      <div class="text-center w-full text-sm text-gray-500">Set vinti</div>
+      <div class="flex justify-evenly mb-4 text-gray-300">
+        <div class="w-full text-center text-2xl text-gray-400">
+          <p>{{ store.playerOne.sets }}</p>
+        </div>
+        <div class="w-full text-2xl text-center text-gray-400">
+          <p>{{ store.playerTwo.sets }}</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1">
+        <span class="text-center w-full text-sm text-gray-500">set 1</span>
+        <div class="mb-4 grid grid-cols-2 gap-1 text-white">
+          <SetsScore :pointSet="store.playerOne.setOne" />
+          <SetsScore :pointSet="store.playerTwo.setOne" />
+        </div>
+        <span class="text-center w-full text-sm text-gray-500">set 2</span>
+        <div class="mb-4 grid grid-cols-2 gap-1 text-white">
+          <SetsScore :pointSet="store.playerOne.setTwo" />
+          <SetsScore :pointSet="store.playerTwo.setTwo" />
+        </div>
+        <span class="text-center w-full text-sm text-gray-500">set 3</span>
+        <div class="mb-4 grid grid-cols-2 gap-1 text-white">
+          <SetsScore :pointSet="store.playerOne.setThree" />
+          <SetsScore :pointSet="store.playerTwo.setThree" />
+        </div>
+      </div>
 
-    <!-- Pulsante per resettare il punteggio -->
-    <div class="grid grid-cols-2 gap-1">
-      <Button @handler="resetScore" text="reset" intent="secondary" />
-      <Button @handler="undoAction" text="undo" intent="secondary" />
+      <!-- Pulsanti per aumentare il punteggio -->
+      <div class="mb-1 grid grid-cols-2 gap-1">
+        <Button
+          @handler="store.increaseScore(1)"
+          text="player 1"
+          intent="secondary"
+        />
+        <Button
+          @handler="store.increaseScore(2)"
+          text="Player 2"
+          intent="secondary"
+        />
+      </div>
+
+      <!-- Pulsante per resettare il punteggio -->
+      <div class="grid grid-cols-2 gap-1">
+        <Button @handler="resetScore" text="reset" intent="secondary" />
+        <Button @handler="undoAction" text="undo" intent="secondary" />
+      </div>
     </div>
   </div>
 </template>

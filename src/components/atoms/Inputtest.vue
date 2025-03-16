@@ -2,7 +2,10 @@
 const firstName = defineModel("firstName");
 defineProps({
   label: String,
-  default: "inserisci il tuo nome",
+  placeHolder: {
+    type: String,
+    default: "inserisci il tuo nome",
+  },
 });
 </script>
 
@@ -15,6 +18,7 @@ defineProps({
       class="border border-gray-800 text-gray-800 rounded-full w-full py-2 px-4"
       type="text"
       v-model="firstName"
+      :placeholder="placeHolder"
     />
   </label>
 </template>

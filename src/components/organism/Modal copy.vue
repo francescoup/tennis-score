@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen w-full bg-yellow-400/8 absolute top-0 left-0 p-5 flex justify-center items-center"
+    class="h-screen w-full bg-yellow-400/8 absolute top-0 left-0 p-5 flex justify-center items-start md:items-center"
     aria-labelledby="inizia partita"
     role="dialog"
     aria-modal="true"
