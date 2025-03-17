@@ -11,6 +11,7 @@ const props = defineProps({
   text: String,
   disabled: Boolean,
   intent: {
+    type: String,
     validator: (val) => ["primary", "secondary"].includes(val),
     default: "primary",
   },

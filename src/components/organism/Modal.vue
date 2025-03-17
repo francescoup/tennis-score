@@ -17,6 +17,12 @@
           placeHolder="inserisci il tuo nome"
         />
         <Inputtest v-model:firstName="playerTwo.nome" label="Giocatore due" />
+        <div class="w-full flex justify-center">
+          <tennis-ball
+            title="this is an icon!"
+            fillColor="oklch(0.75 0.183 55.934)"
+          />
+        </div>
         <Button
           @handler="closeModal"
           text="Inizia la partita"
@@ -29,6 +35,7 @@
 </template>
 
 <script setup>
+import TennisBall from "vue-material-design-icons/TennisBall.vue";
 import Button from "../atoms/Button.vue";
 import Input from "../atoms/Input.vue";
 import Inputtest from "../atoms/Inputtest.vue";

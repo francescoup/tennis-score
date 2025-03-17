@@ -2,7 +2,9 @@
   <main
     class="bg-gray-900 flex justify-center items-center lg:items-center h-screen"
   >
-    <div class="w-full h-full bg-[url(assets/bg-tennis.jpg)] bg-cover bg-top">
+    <div
+      class="w-full h-full bg-[url(assets//img/bg-tennis-min.jpg)] bg-cover bg-top"
+    >
       <Transition>
         <div v-if="isShowModal">
           <Modal @handlerModal="time" />
