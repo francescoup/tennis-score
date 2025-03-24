@@ -129,11 +129,11 @@ export const useTennisScore = defineStore("TennisScore", () => {
     if (playerOne.sets === 2) {
       openModal.value = true;
       isWinner.value = playerOne.nome;
-      resetScore();
+      //resetScore();
     } else if (playerTwo.sets === 2) {
       openModal.value = true;
       isWinner.value = playerTwo.nome;
-      resetScore();
+      //resetScore();
     }
   };
   //store results
@@ -170,6 +170,15 @@ export const useTennisScore = defineStore("TennisScore", () => {
     playerOne.sets = 0;
     playerTwo.sets = 0;
   };
+
+  const undoAction = () => {
+    if (isActivePlayer.value === 1 && playerOne.point > 0) {
+      playerOne.point--;
+    } else if (isActivePlayer.value === 2 && playerTwo.point > 0) {
+      playerTwo.point--;
+    }
+  };
+
   return {
     playerOne,
     playerTwo,
@@ -177,5 +186,6 @@ export const useTennisScore = defineStore("TennisScore", () => {
     openModal,
     isWinner,
     increaseScore,
+    undoAction,
   };
 });

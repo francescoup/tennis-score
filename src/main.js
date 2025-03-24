@@ -1,8 +1,20 @@
-import { createApp } from "vue";
+import { createApp, watch } from "vue";
 import router from "./router";
 import { createPinia } from "pinia";
 
 import "./style.css";
 import App from "./App.vue";
 
-createApp(App).use(router).use(createPinia()).mount("#app");
+const pinia = createPinia();
+if (localStorage.getItem("state")) {
+  pinia.state.value = JSON.parse(localStorage.getItem("state"));
+}
+watch(
+  pinia.state,
+  (state) => {
+    localStorage.setItem("state", JSON.stringify(state));
+  },
+  { deep: true }
+);
+console.log(pinia.state);
+createApp(App).use(router).use(pinia).mount("#app");

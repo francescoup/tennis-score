@@ -29,6 +29,12 @@
           intent="modal"
           :disabled="playerOne.nome && playerTwo.nome ? false : true"
         />
+        <Button
+          @handler="recordStore"
+          text="Record"
+          intent="modal"
+          :disabled="false"
+        />
       </div>
     </div>
   </div>
@@ -42,9 +48,12 @@ import Inputtest from "../atoms/Inputtest.vue";
 import { useTennisScore } from "../../store/store";
 const { playerOne, playerTwo } = useTennisScore();
 
-const emit = defineEmits(["handlerModal"]);
+const emit = defineEmits(["handlerModal", "handlerRecord"]);
 
 function closeModal() {
   emit("handlerModal");
+}
+function recordStore() {
+  emit("handlerRecord");
 }
 </script>

@@ -7,10 +7,9 @@
     >
       <Transition>
         <div v-if="isShowModal">
-          <Modal @handlerModal="time" />
+          <Modal @handlerModal="time" @handlerRecord="prova" />
         </div>
       </Transition>
-
       <div
         class="flex flex-col justify-center lg:justify-center gap-3 p-10 md:p-20 h-full"
       >
@@ -36,13 +35,11 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
-import { storeToRefs } from "pinia";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Button from "../atoms/Button.vue";
 import Modal from "../organism/Modal.vue";
 import Title from "../atoms/Title.vue";
-import { useTennisScore } from "../../store/store";
 const router = useRouter();
 const isShowModal = ref(false);
 const showModal = () => {
@@ -53,6 +50,12 @@ const time = () => {
   showModal();
   setTimeout(() => {
     return router.push("/score");
+  }, 1000);
+};
+const prova = () => {
+  showModal();
+  setTimeout(() => {
+    return router.push("/record");
   }, 1000);
 };
 </script>

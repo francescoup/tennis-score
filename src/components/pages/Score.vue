@@ -8,7 +8,6 @@
           intent="modal"
           @handler="() => (store.openModal = false)"
         />
-        <button @click="() => (store.openModal = false)">chidi</button>
       </ModalCopy>
     </div>
     <div class="w-full h-auto md:w-1/3">
@@ -74,8 +73,26 @@
 
       <!-- Pulsante per resettare il punteggio -->
       <div class="grid grid-cols-2 gap-1">
-        <Button @handler="resetScore" text="reset" intent="secondary" />
-        <Button @handler="undoAction" text="undo" intent="secondary" />
+        <Button @handler="store.undoAction()" text="undo" intent="secondary" />
+        <Button
+          @handler="
+            match.storeMatchs({
+              id: idMatch++,
+              playerOne: store.playerOne.nome,
+              playerTwo: store.playerTwo.nome,
+              sets: [
+                store.playerOne.setOne,
+                store.playerOne.setTwo,
+                store.playerOne.setThree,
+                store.playerTwo.setOne,
+                store.playerTwo.setTwo,
+                store.playerTwo.setThree,
+              ],
+            })
+          "
+          text="undo"
+          intent="secondary"
+        />
       </div>
     </div>
   </div>
@@ -84,36 +101,15 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useTennisScore } from "../../store/store";
-const store = useTennisScore();
+import { useStoreMatch } from "../../store/matchs";
 import ModalCopy from "../organism/Modal copy.vue";
-
-// Stati reattivi per i punteggi dei giochi
-
 import PointScore from "../molecules/PointScore.vue";
 import Button from "../atoms/Button.vue";
 import SetsScore from "../molecules/SetsScore.vue";
-const player1Score = ref(0);
-const player2Score = ref(0);
 
-// Stat reattivi per i game vinti
-const player1Game = ref(0);
-const player2Game = ref(0);
-
-// Stati reattivi per i set vinti
-const player1Sets = ref(0);
-const player2Sets = ref(0);
-
-// Game singoli sets
-const player1Set1 = ref(0);
-const player2Set1 = ref(0);
-const player1Set2 = ref(0);
-const player2Set2 = ref(0);
-const player1Set3 = ref(0);
-const player2Set3 = ref(0);
-
-// Nomi dei giocatori
-const player1Name = "Giocatore 1";
-const player2Name = "Giocatore 2";
+const store = useTennisScore();
+const match = useStoreMatch();
+const idMatch = ref(1);
 
 // Mappa per il punteggio dei giochi
 const scoreMap = [0, 15, 30, 40, "A", "Vittoria"];
@@ -125,12 +121,6 @@ const player1DisplayScore = computed(() =>
 const player2DisplayScore = computed(() =>
   store.isTieBreack ? store.playerTwo.point : scoreMap[store.playerTwo.point]
 );
-// active user
-const activeUser = ref(0);
-// Tie Breack
-const tieBreack = ref(false);
-// Deuce
-const isDeuce = ref(false);
 
 // Funzione per aumentare il punteggio di un giocatore nel gioco
 const increaseScore = (player) => {
@@ -266,13 +256,13 @@ const resetScore = () => {
   player2Sets.value = 0;
 };
 
-const undoAction = () => {
-  if (activeUser.value === 1 && player1Score.value > 0) {
-    player1Score.value--;
-  } else if (activeUser.value === 2 && player2Score.value > 0) {
-    player2Score.value--;
-  }
-};
+// const undoAction = () => {
+//   if (activeUser.value === 1 && player1Score.value > 0) {
+//     player1Score.value--;
+//   } else if (activeUser.value === 2 && player2Score.value > 0) {
+//     player2Score.value--;
+//   }
+// };
 </script>
 
 <style scoped>
