@@ -2,12 +2,41 @@
   <div class="w-screen flex justify-center items-center p-4 h-screen">
     <div v-if="store.openModal">
       <ModalCopy>
-        <span class="text-black">the winner is {{ store.isWinner }}</span>
-        <Button
-          text="chiusi"
-          intent="modal"
-          @handler="() => (store.openModal = false)"
-        />
+        <div class="flex flex-col gap-2">
+          <span class="text-gray-800 text-3xl flex justify-center"
+            >The winner is {{ store.isWinner }}</span
+          >
+          <div class="w-full flex justify-center">
+            <tennis-ball
+              title="this is an icon!"
+              fillColor="oklch(0.75 0.183 55.934)"
+            />
+          </div>
+          <Button
+            text="chiudi"
+            intent="modal"
+            @handler="() => (store.openModal = false)"
+          />
+          <Button
+            text="Salva il punteggio"
+            intent="modal"
+            @handler="
+              match.storeMatchs({
+                id: idMatch++,
+                playerOne: store.playerOne.nome,
+                playerTwo: store.playerTwo.nome,
+                sets: [
+                  store.playerOne.setOne,
+                  store.playerOne.setTwo,
+                  store.playerOne.setThree,
+                  store.playerTwo.setOne,
+                  store.playerTwo.setTwo,
+                  store.playerTwo.setThree,
+                ],
+              })
+            "
+          />
+        </div>
       </ModalCopy>
     </div>
     <div class="w-full h-auto md:w-1/3">
@@ -73,26 +102,8 @@
 
       <!-- Pulsante per resettare il punteggio -->
       <div class="grid grid-cols-2 gap-1">
+        <Button @handler="store.resetScore()" text="reset" intent="secondary" />
         <Button @handler="store.undoAction()" text="undo" intent="secondary" />
-        <Button
-          @handler="
-            match.storeMatchs({
-              id: idMatch++,
-              playerOne: store.playerOne.nome,
-              playerTwo: store.playerTwo.nome,
-              sets: [
-                store.playerOne.setOne,
-                store.playerOne.setTwo,
-                store.playerOne.setThree,
-                store.playerTwo.setOne,
-                store.playerTwo.setTwo,
-                store.playerTwo.setThree,
-              ],
-            })
-          "
-          text="undo"
-          intent="secondary"
-        />
       </div>
     </div>
   </div>
@@ -106,6 +117,7 @@ import ModalCopy from "../organism/Modal copy.vue";
 import PointScore from "../molecules/PointScore.vue";
 import Button from "../atoms/Button.vue";
 import SetsScore from "../molecules/SetsScore.vue";
+import TennisBall from "vue-material-design-icons/TennisBall.vue";
 
 const store = useTennisScore();
 const match = useStoreMatch();
@@ -249,12 +261,12 @@ function storeSets(player) {
 }
 
 // Funzione per resettare il punteggio
-const resetScore = () => {
-  player1Score.value = 0;
-  player2Score.value = 0;
-  player1Sets.value = 0;
-  player2Sets.value = 0;
-};
+// const resetScore = () => {
+//   player1Score.value = 0;
+//   player2Score.value = 0;
+//   player1Sets.value = 0;
+//   player2Sets.value = 0;
+// };
 
 // const undoAction = () => {
 //   if (activeUser.value === 1 && player1Score.value > 0) {
@@ -264,7 +276,3 @@ const resetScore = () => {
 //   }
 // };
 </script>
-
-<style scoped>
-/* Puoi personalizzare lo stile qui se necessario */
-</style>

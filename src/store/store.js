@@ -186,6 +186,7 @@ export const useTennisScore = defineStore("TennisScore", () => {
     openModal,
     isWinner,
     increaseScore,
+    resetScore,
     undoAction,
   };
 });

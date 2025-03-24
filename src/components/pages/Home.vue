@@ -7,7 +7,7 @@
     >
       <Transition>
         <div v-if="isShowModal">
-          <Modal @handlerModal="time" @handlerRecord="prova" />
+          <Modal @handlerModal="sendScore" @handlerRecord="sendRecord" />
         </div>
       </Transition>
       <div
@@ -46,13 +46,13 @@ const showModal = () => {
   isShowModal.value = !isShowModal.value;
 };
 
-const time = () => {
+const sendScore = () => {
   showModal();
   setTimeout(() => {
     return router.push("/score");
   }, 1000);
 };
-const prova = () => {
+const sendRecord = () => {
   showModal();
   setTimeout(() => {
     return router.push("/record");
