@@ -23,6 +23,7 @@
             @handler="
               match.storeMatchs({
                 id: idMatch++,
+                winner: store.isWinner,
                 playerOne: store.playerOne.nome,
                 playerTwo: store.playerTwo.nome,
                 sets: [
@@ -102,8 +103,18 @@
 
       <!-- Pulsante per resettare il punteggio -->
       <div class="grid grid-cols-2 gap-1">
-        <Button @handler="store.resetScore()" text="reset" intent="secondary" />
-        <Button @handler="store.undoAction()" text="undo" intent="secondary" />
+        <Button
+          :icon="Restart"
+          @handler="store.resetScore()"
+          text="reset"
+          intent="secondary"
+        />
+        <Button
+          :icon="UndoVariant"
+          @handler="store.undoAction()"
+          text="undo"
+          intent="secondary"
+        />
       </div>
     </div>
   </div>
@@ -118,6 +129,8 @@ import PointScore from "../molecules/PointScore.vue";
 import Button from "../atoms/Button.vue";
 import SetsScore from "../molecules/SetsScore.vue";
 import TennisBall from "vue-material-design-icons/TennisBall.vue";
+import UndoVariant from "vue-material-design-icons/UndoVariant.vue";
+import Restart from "vue-material-design-icons/Restart.vue";
 
 const store = useTennisScore();
 const match = useStoreMatch();

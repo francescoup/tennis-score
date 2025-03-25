@@ -1,61 +1,63 @@
 <template>
-  <div
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-8 min-h-screen text-gray-200"
-  >
-    <!-- <RouterLink to="/">home</RouterLink> -->
+  <main class="bg-blue-700 min-h-screen">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8 text-gray-200"
+    >
+      <!-- <RouterLink to="/">home</RouterLink> -->
 
-    <!-- <ModalCopy>
+      <!-- <ModalCopy>
       <Input />
     </ModalCopy> -->
 
-    <div v-if="!tennis">nessun dato salvato</div>
-    <div
-      v-else
-      class="border border-gray-800 flex gap-2 p-4 rounded-lg"
-      v-for="item in tennis.matchs.matchs"
-      key="item.id"
-    >
-      <div>
-        <div
-          :class="
-            item.playerOne == tennis.TennisScore.isWinner
-              ? 'text-yellow-400'
-              : ''
-          "
+      <div v-if="storeMatch.matchs.length == 0">nessun dato salvato</div>
+      <div
+        v-else
+        class="border relative border-gray-400 row-span-1 flex gap-2 p-4 rounded-lg"
+        v-for="(item, index) in storeMatch.matchs"
+        key="item.id"
+      >
+        <button
+          class="absolute flex justify-center items-center -top-3 -right-3 h-8 w-8 rounded-full border bg-blue-800 hover:bg-gray-100 hover:text-blue-800 text-gray-100 border-gray-400 transition-colors"
+          @click="canc(index)"
         >
-          {{ item.playerOne ? item.playerOne : "giocatore uno" }}
+          <Close title="this is an icon!" />
+        </button>
+        <div>
+          <div :class="item.playerOne == item.winner ? 'text-yellow-400' : ''">
+            {{ item.playerOne ? item.playerOne : "giocatore uno" }}
+          </div>
+          <div :class="item.playerTwo == item.winner ? 'text-yellow-400' : ''">
+            {{ item.playerTwo ? item.playerTwo : "giocatore due" }}
+          </div>
         </div>
-        <div
-          :class="
-            item.playerTwo == tennis.TennisScore.isWinner
-              ? 'text-yellow-400'
-              : ''
-          "
-        >
-          {{ item.playerTwo ? item.playerTwo : "giocatore due" }}
-        </div>
-      </div>
-      <div class="grid grid-rows-2 grid-cols-3">
-        <div class="px-4" v-for="(set, index) in item.sets" key="item.id">
-          <span :class="getClass(index, set, item.sets)">{{ set }}</span>
+        <div class="grid grid-cols-3">
+          <div class="px-4" v-for="(set, index) in item.sets" key="item.id">
+            <span :class="getClass(index, set, item.sets)">{{ set }}</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup>
+import { watch } from "vue";
 import { RouterLink } from "vue-router";
 import { useTennisScore } from "../../store/store";
+import { useStoreMatch } from "../../store/matchs";
 import ModalCopy from "../organism/Modal copy.vue";
 import Input from "../atoms/Input.vue";
+import Close from "vue-material-design-icons/Close.vue";
 
 const store = useTennisScore();
+const storeMatch = useStoreMatch();
 
 let tennis = JSON.parse(localStorage.getItem("state"));
 
 //Definisce una classe specifica per chi vince un set
-
+function canc(index) {
+  storeMatch.matchs.splice(index, 1);
+}
 const getClass = (index, set, sets) => {
   if (index === 0 && set > sets[3]) {
     return "text-yellow-400"; // Primo vs quarto
@@ -72,4 +74,22 @@ const getClass = (index, set, sets) => {
   }
   return ""; // Nessuna classe se non è maggiore
 };
+
+watch(
+  () => storeMatch.matchs,
+  (state) => {
+    localStorage.setItem("test", JSON.stringify(state));
+  },
+  { deep: true, immediate: true }
+);
+if (localStorage.getItem("test")) {
+  storeMatch.matchs.value = JSON.parse(localStorage.getItem("test"));
+}
+// watch(
+//   match.matchs,
+//   (state) => {
+//     localStorage.setItem("state", JSON.stringify(state));
+//   },
+//   { deep: true }
+// );
 </script>

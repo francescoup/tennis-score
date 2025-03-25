@@ -159,6 +159,8 @@ export const useTennisScore = defineStore("TennisScore", () => {
 
   //reset match
   const resetScore = () => {
+    playerOne.nome = "";
+    playerTwo.nome = "";
     playerOne.game = 0;
     playerTwo.game = 0;
     playerOne.setOne = 0;

@@ -16,5 +16,4 @@ watch(
   },
   { deep: true }
 );
-console.log(pinia.state);
 createApp(App).use(router).use(pinia).mount("#app");
