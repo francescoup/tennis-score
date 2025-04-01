@@ -21,7 +21,7 @@ const props = defineProps({
 const emit = defineEmits(["handler"]);
 const buttonClass = computed(() => {
   return cva(
-    "border relative transition-colors py-2 w-full inline-flex justify-center",
+    "border relative transition-all py-2 w-full inline-flex justify-center active:scale-85 ",
     {
       variants: {
         intent: {

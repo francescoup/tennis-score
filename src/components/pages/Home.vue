@@ -6,8 +6,41 @@
       class="w-full h-full bg-[url(assets//img/bg-tennis-min.jpg)] bg-cover bg-top"
     >
       <Transition>
-        <div v-if="isShowModal">
-          <Modal @handlerModal="sendScore" @handlerRecord="sendRecord" />
+        <div v-if="tennisScore.openModal">
+          <!-- <Modal @handlerModal="sendScore" @handlerRecord="sendRecord" /> -->
+          <ModalCopy @handlerModal="tennisScore.openModal = false">
+            <Inputtest
+              v-model:firstName="tennisScore.playerOne.nome"
+              label="Giocatore uno"
+              placeHolder="inserisci il tuo nome"
+            />
+            <Inputtest
+              v-model:firstName="tennisScore.playerTwo.nome"
+              label="Giocatore due"
+            />
+            <div class="w-full flex justify-center">
+              <tennis-ball
+                title="this is an icon!"
+                fillColor="oklch(0.75 0.183 55.934)"
+              />
+            </div>
+            <Button
+              @handler="sendScore"
+              text="Inizia la partita"
+              intent="modal"
+              :disabled="
+                tennisScore.playerOne.nome && tennisScore.playerTwo.nome
+                  ? false
+                  : true
+              "
+            />
+            <Button
+              @handler="sendRecord"
+              text="Partite salvate"
+              intent="modal"
+              :disabled="matchsScore.matchs.length === 0 ? true : false"
+            />
+          </ModalCopy>
         </div>
       </Transition>
       <div
@@ -35,15 +68,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useTennisScore } from "../../store/store";
+import { useStoreMatch } from "../../store/matchs";
 import Button from "../atoms/Button.vue";
-import Modal from "../organism/Modal.vue";
 import Title from "../atoms/Title.vue";
+import ModalCopy from "../organism/Modal copy.vue";
+import Inputtest from "../atoms/Inputtest.vue";
+import TennisBall from "vue-material-design-icons/TennisBall.vue";
+
+const tennisScore = useTennisScore();
+const matchsScore = useStoreMatch();
 const router = useRouter();
 const isShowModal = ref(false);
 const showModal = () => {
-  isShowModal.value = !isShowModal.value;
+  tennisScore.openModal = !tennisScore.openModal;
 };
 
 const sendScore = () => {
