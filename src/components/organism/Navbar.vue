@@ -9,7 +9,7 @@
       :link="item.link"
       :text="item.text"
       :delay="item.delay"
-      :isOpen="open"
+      :isOpen="isOpen"
       @handler="openMenu"
     />
   </div>
@@ -27,11 +27,11 @@ import { ref } from "vue";
 import Link from "../atoms/Link.vue";
 import TennisBall from "vue-material-design-icons/TennisBall.vue";
 
-const open = ref(false);
+const isOpen = ref(false);
 const isactive = ref(true);
 
 function openMenu() {
-  open.value = !open.value;
+  isOpen.value = !isOpen.value;
   isactive.value = !isactive.value;
 }
 const menuItem = [
