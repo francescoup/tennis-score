@@ -1,6 +1,7 @@
 <template>
   <div
-    class="fixed z-5 flex flex-col gap-3 justify-end items-end bottom-8 right-8 w-48 h-auto"
+    :class="{ 'translate-x-full': isactive }"
+    class="w-48 h-auto fixed flex flex-col gap-3 justify-end items-end bottom-24 right-8 transition-transform ease-in-out"
   >
     <Link
       v-for="item in menuItem"
@@ -11,19 +12,13 @@
       :isOpen="open"
       @handler="openMenu"
     />
-    <!-- <Link
-      link="/"
-      text="Credits"
-      :isOpen="open"
-      :delay="225"
-      @handler="openMenu"
-    />
-    <Link link="/record" text="Matchs" :isOpen="open" :delay="150" />
-    <Link link="/score" text="Tennis score" :isOpen="open" :delay="75" />
-    <Link link="/" text="Home page" :isOpen="open" :delay="0" /> -->
-    <div :class="`${open ? '' : 'animate-bounce'}`" @click="openMenu">
-      <TennisBall size="50" fillColor="oklch(0.879 0.169 91.605)" />
-    </div>
+  </div>
+  <div
+    class="fixed bottom-8 right-8"
+    :class="{ 'animate-bounce': isactive }"
+    @click="openMenu"
+  >
+    <TennisBall size="50" fillColor="oklch(0.879 0.169 91.605)" />
   </div>
 </template>
 
@@ -33,9 +28,11 @@ import Link from "../atoms/Link.vue";
 import TennisBall from "vue-material-design-icons/TennisBall.vue";
 
 const open = ref(false);
+const isactive = ref(true);
 
 function openMenu() {
   open.value = !open.value;
+  isactive.value = !isactive.value;
 }
 const menuItem = [
   {
